@@ -14,10 +14,11 @@ sectores<-combenado%>%
   select(SectorINECorto)%>%
   unique()%>%
   pull(, SectorINECorto)
+
 combenado%>%
   #filter(SectorINECorto==sectores[6]|SectorINECorto==sectores[8])%>%
-  #filter(SectorINECorto==sectores[6])%>%
-  filter(SectorINECorto==sectores)%>%
+  filter(SectorINECorto==sectores[7])%>%
+  #filter(SectorINECorto==sectores)%>%
   ggplot(
     aes(Valor,value,
         color=SectorINECorto))+
