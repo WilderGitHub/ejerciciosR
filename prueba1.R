@@ -1,27 +1,43 @@
 pacman::p_load(pacman,party,rio,tidyverse) 
+#Importamos el excel
 BDTesis<-import("BDTesis4.xlsx")%>% as_tibble
 
-#### scatterplot por sectores
+##  1  ## SCATTERPLOT POR SECTORES
+#Filtramos
 BDIED<-BDTesis%>%
-  filter(Categoria=="IED")
-
-BDIED
+  filter(Categoria=="OI")
+#BDIED
+#el PIB lo volvemos tidy
 piblong<-PIBs%>%
   pivot_longer(cols = !Periodo, names_to = "SectorINECorto",values_to = "value")
-piblong
+
+#combinamos los tibbles para cruzar biencito
 combenado<- merge(BDIED,piblong,by=c("Periodo","SectorINECorto"))
+
+#sacamos un vector con los sectores
 sectores<-combenado%>%
   select(SectorINECorto)%>%
   unique()%>%
   pull(, SectorINECorto)
 
+#hacermos el gráfico
 combenado%>%
   #filter(SectorINECorto==sectores[6]|SectorINECorto==sectores[8])%>%
-  filter(SectorINECorto==sectores[7])%>%
-  #filter(SectorINECorto==sectores)%>%
+  #filter(SectorINECorto==sectores[7])%>%
+  filter(SectorINECorto==sectores)%>%
   ggplot(
     aes(Valor,value,
         color=SectorINECorto))+
-  geom_point(size=5,alpha=.5)
+  geom_point(size=5,alpha=.5)+
+  facet_wrap(~Categoria)
 
-##Crecimiento por categoria funcional
+##  2  ## LINEAS POR SECTORES
+#Importamos el excel
+BDTesis<-import("BDTesis4.xlsx")%>% as_tibble
+BDTesis
+#TotalFinanciamiento <- aggregate(BDTesis$Valor,list(BDTesis$Periodo), FUN=sum)
+TotalFinanciamiento <-aggregate(Valor ~ Periodo, data = BDTesis, FUN = sum, na.rm = TRUE)
+ggplot(TotalFinanciamiento,aes(Periodo,Valor, group=1))+
+  geom_line(color = "steelblue",size=1)
+  
+
