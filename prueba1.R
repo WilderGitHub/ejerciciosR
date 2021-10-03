@@ -42,6 +42,7 @@ BDfiltro
 TotalFinanciamiento <-aggregate(Valor ~ Periodo+Categoria+SectorINECorto, data = BDfiltro, FUN = sum, na.rm = TRUE)
 ggplot(TotalFinanciamiento,aes(Periodo,Valor, group=1))+
   geom_line(color = "steelblue",size=1)+
-  facet_grid(SectorINECorto~Categoria)
+  facet_grid(Categoria~SectorINECorto)
+
   
 
