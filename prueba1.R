@@ -5,9 +5,11 @@ BDTesis<-import("BDTesis4.xlsx")%>% as_tibble
 ##  1  ## SCATTERPLOT POR SECTORES
 #Filtramos
 BDIED<-BDTesis%>%
-  filter(Categoria=="OI")
+  filter(Categoria=="ID")
 #BDIED
 #el PIB lo volvemos tidy
+PIBs<-import("PIBs.xlsx")%>% as_tibble
+#pairs(PIBs[,2:4])
 piblong<-PIBs%>%
   pivot_longer(cols = !Periodo, names_to = "SectorINECorto",values_to = "value")
 
@@ -28,8 +30,9 @@ combenado%>%
   ggplot(
     aes(Valor,value,
         color=SectorINECorto))+
-  geom_point(size=5,alpha=.5)+
-  facet_wrap(~Categoria)
+  geom_point(size=1,alpha=.5)+
+  #facet_wrap(~Categoria)
+  facet_grid(Categoria~SectorINECorto)
 
 ##  2  ## LINEAS POR SECTORES
 #Importamos el excel
