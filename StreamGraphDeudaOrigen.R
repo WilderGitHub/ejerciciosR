@@ -12,10 +12,10 @@ cols <- c('#8dd3c7','#ffffb3','#bebada','#fb8072','#80b1d3','#fdb462','#b3de69',
 
 #dibujamos el streamgraph
 #OJO ESTE PERIODO DEBE SER CONTINUO OE, ESO ESTABA ARRUINANDO
-ggplot(dfacreedor, aes(x = Pperiodo, y = Valor, fill = Sector)) +
+ggplot(dfacreedor, aes(x = Periodo, y = Valor, fill = Sector)) +
   geom_stream() +
   scale_fill_manual(values = cols)+
-  labs(title = "IED de España",
+  labs(title = "Desembolsos de España",
        
        subtitle = "(En millones de $us)",
        caption  = "Fuente: BCB"
