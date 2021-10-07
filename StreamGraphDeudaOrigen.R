@@ -1,5 +1,7 @@
 #Las librerias de rigor
 pacman::p_load(pacman,party,rio,tidyverse) 
+#install("ggstream")
+install.packages("ggstream")
 library(ggstream)
 #importamos los datos oe
 df<-import("DeudaOrigen.xlsx") %>% as_tibble()
