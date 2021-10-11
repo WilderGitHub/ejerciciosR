@@ -4,8 +4,8 @@ BDsectores<-import("Tidy05oct.xlsx")%>% as_tibble
 head(BDsectores)
 ##  1  ## SCATTERPLOT POR SECTORES
 #Filtramos el sector
-BDfiltrado<-BDsectores#%>%
-  #filter(SectorTesis=="PetroleoGas")
+BDfiltrado<-BDsectores%>%
+  filter(SectorTesis=="PetroleoGas")
 head(BDfiltrado)
 
 #eLa variable lo volvemos tidy
