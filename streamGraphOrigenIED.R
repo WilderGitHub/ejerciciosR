@@ -1,3 +1,4 @@
+
 #Las librerias de rigor
 pacman::p_load(pacman,party,rio,tidyverse) 
 library(ggstream)
@@ -13,10 +14,13 @@ cols <- c('#8dd3c7','#ffffb3','#bebada','#fb8072','#80b1d3','#fdb462','#b3de69',
 #dibujamos el streamgraph
 ggplot(dfpais, aes(x = Periodo, y = Valor, fill = Sector)) +
   geom_stream() +
-  scale_fill_manual(values = cols)+
-  labs(title = "IED de España",
+  scale_fill_manual(values = cols)#+
+  
+#labs(title = "IED de España",
        
-       subtitle = "(En millones de $us)",
-       caption  = "Fuente: BCB"
-  )
+  #     subtitle = "(En millones de $us)",
+  #     caption  = "Fuente: BCB"
+  #)
+  #scale_x_continuous(name="Speed of cars", limits=c(2005, 2020)) +
+  #scale_y_continuous(name="Stopping distance", limits=c(0, 600))
 # + geom_stream_label(aes(label = Sector))
