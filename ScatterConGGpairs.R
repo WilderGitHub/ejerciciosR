@@ -1,6 +1,11 @@
+#instalamos las librerias necesarias
 pacman::p_load(pacman,party,rio,tidyverse) 
+install.packages("GGally")
+library(GGally)
+
 #Importamos el excel
-BDsectores<-import("Tidy05oct.xlsx")%>% as_tibble
+
+Dsectores<-import("Tidy05oct.xlsx")%>% as_tibble
 head(BDsectores)
 ##  1  ## SCATTERPLOT POR SECTORES
 #Filtramos el sector
@@ -11,14 +16,14 @@ head(BDfiltrado)
 #eLa variable lo volvemos tidy
 #pairs(PIBs[,2:4])
 BDfiltradoWide<-BDfiltrado%>%
+  filter(SectorTesis!="Agricultura"&SectorTesis!="Construccion")%>%
   pivot_wider(names_from = Variable, values_from = Valor)
   #pivot_longer(cols = !Periodo, names_to = "SectorINECorto",values_to = "value")
 
 #del 5 al 9 no considera IC
-pairs(BDfiltradoWide[,5:9],cex=1
-      ,col = hcl.colors(8, "Temps")[SectorTesis]
-      #,col = BDfiltradoWide$SectorTesis,
-      ,main="Titulo"
-      ,lower.panel=NULL)
+ggpairs(BDfiltradoWide,
+        columns=5:9,
+        aes(color=SectorTesis,
+            alpha=.1))
 
 
