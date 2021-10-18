@@ -4,26 +4,38 @@ install.packages("GGally")
 library(GGally)
 
 #Importamos el excel
-
-Dsectores<-import("Tidy05oct.xlsx")%>% as_tibble
+BDsectores<-import("CorrelacionesSectores.xlsx")%>% as_tibble
 head(BDsectores)
-##  1  ## SCATTERPLOT POR SECTORES
-#Filtramos el sector
-BDfiltrado<-BDsectores#%>%
-  #filter(SectorTesis=="PetroleoGas")
-head(BDfiltrado)
+BDtotales<-import("CorrelacionesTotales.xlsx")%>% as_tibble
+head(BDtotales)
 
-#eLa variable lo volvemos tidy
-#pairs(PIBs[,2:4])
+#Filtramos
+BDfiltrado<-BDsectores%>%
+  
+  #filter(Sector=="Hidrocarburos")
+  ############FILTROS PARA QUE SALGA BONITO
+  filter(Sector=="Hidrocarburos" & Fecha !=as.Date("2008-03-01") &Fecha !=as.Date("2008-06-01")&Fecha !=as.Date("2020-06-01"))
+  #filter(Sector=="Comercio" & Fecha !=as.Date("2020-06-01"))
+  #filter(Sector=="Mineria" & Fecha !=as.Date("2014-12-01")& Fecha !=as.Date("2012-03-01"))
+  #filter(Sector=="IndManufac" & Fecha !=as.Date("2012-06-01")& Fecha !=as.Date("2011-03-01"))
+  #filter(Sector=="Agricultura" & Fecha !=as.Date("2007-09-01")& Fecha !=as.Date("2007-12-01")& Fecha !=as.Date("2007-03-01")& Fecha !=as.Date("2007-06-01"))
+  #filter(Sector=="Construccion" & Fecha !=as.Date("2015-09-01")& Fecha !=as.Date("2015-12-01"))
+  #filter(Sector=="TransComunic"& Fecha !=as.Date("2012-09-01"))
+#head(BDfiltrado)
+
+#Ponemos en formato para ggpairs
 BDfiltradoWide<-BDfiltrado%>%
-  filter(SectorTesis!="Agricultura"&SectorTesis!="Construccion")%>%
   pivot_wider(names_from = Variable, values_from = Valor)
-  #pivot_longer(cols = !Periodo, names_to = "SectorINECorto",values_to = "value")
+BDtotalesWide<-BDtotales%>%
+  pivot_wider(names_from = Variable, values_from = Valor)
 
-#del 5 al 9 no considera IC
-ggpairs(BDfiltradoWide,
-        columns=5:9,
-        aes(color=SectorTesis,
+#unimos los dos tibbles
+combenado<- merge(BDfiltradoWide,BDtotalesWide,by=c("Fecha"))
+
+#Ahora dibujamos
+ggpairs(combenado,
+        columns=c("IED","OI","PIB","IEDTotal","OITotal","TotalGral","PIBTotal","InvPubTotal","CreditoTotal"),
+        aes(color=Sector,
             alpha=.1))
 
 
