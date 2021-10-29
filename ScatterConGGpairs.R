@@ -11,10 +11,10 @@ head(BDtotales)
 
 #Filtramos
 BDfiltrado<-BDsectores%>%
-  
+  #aqui pones los sectores
   #filter(Sector=="Hidrocarburos")
   ############FILTROS PARA QUE SALGA BONITO
-  filter(Sector=="Hidrocarburos" & Fecha !=as.Date("2008-03-01") &Fecha !=as.Date("2008-06-01")&Fecha !=as.Date("2020-06-01"))
+  filter(Fecha !=as.Date("2008-03-01") &Fecha !=as.Date("2008-06-01")&Fecha !=as.Date("2020-06-01"))
   #filter(Sector=="Comercio" & Fecha !=as.Date("2020-06-01"))
   #filter(Sector=="Mineria" & Fecha !=as.Date("2014-12-01")& Fecha !=as.Date("2012-03-01"))
   #filter(Sector=="IndManufac" & Fecha !=as.Date("2012-06-01")& Fecha !=as.Date("2011-03-01"))
@@ -34,7 +34,7 @@ combenado<- merge(BDfiltradoWide,BDtotalesWide,by=c("Fecha"))
 
 #Ahora dibujamos
 ggpairs(combenado,
-        columns=c("IED","OI","PIB","IEDTotal","OITotal","TotalGral","PIBTotal","InvPubTotal","CreditoTotal"),
+        columns=c("IED","PIB","IEDTotal","TotalGral","PIBTotal","InvPubTotal","CreditoTotal"),
         aes(color=Sector,
             alpha=.1))
 
