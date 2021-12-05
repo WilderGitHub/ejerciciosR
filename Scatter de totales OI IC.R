@@ -64,11 +64,15 @@ periodosSectores<-periodos%>%
   #aqui pones los sectores
   
   ############FILTROS PARA QUE SALGA BONITO
-  filter(Sector=="Hidrocarburos")
+  #filter(Sector=="Hidrocarburos")
   #filter(Sector=="Hidrocarburos"&Fecha !=as.Date("2008-03-01") &Fecha !=as.Date("2008-06-01")&Fecha !=as.Date("2020-06-01"))
   #filter(Sector=="Comercio" & Fecha !=as.Date("2020-06-01"))
   #filter(Sector=="Mineria" & Fecha !=as.Date("2014-12-01")& Fecha !=as.Date("2012-03-01"))
   #filter(Sector=="Mineria")
+  #filter(Sector=="Construccion")
+  #filter(Sector=="Otros")
+  #filter(Sector=="Comercio")
+  filter(Sector=="IndManufac")
   #filter(Sector=="IndManufac" & Fecha !=as.Date("2012-06-01")& Fecha !=as.Date("2011-03-01"))
   #filter(Sector=="Agricultura" & Fecha !=as.Date("2007-09-01")& Fecha !=as.Date("2007-12-01")& Fecha !=as.Date("2007-03-01")& Fecha !=as.Date("2007-06-01"))
   #filter(Sector=="Construccion" & Fecha !=as.Date("2015-09-01")& Fecha !=as.Date("2015-12-01"))
